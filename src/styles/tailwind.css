@@ -1,0 +1,704 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+    border-color: var(--border);
+    cursor: none !important;
+  }
+
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-cormorant), 'Cormorant Garamond', serif;
+    -webkit-font-smoothing: antialiased;
+    cursor: none !important;
+  }
+
+  html {
+    scroll-behavior: smooth;
+    cursor: none !important;
+  }
+
+  h1, h2, h3, h4, h5, h6, p {
+    margin: 0;
+  }
+
+  a, button, input, [role="button"] {
+    cursor: none !important;
+  }
+}
+
+:root {
+  --background: #5B21B6;
+  --foreground: #f3e8ff;
+  --primary: #8B5CF6;
+  --primary-foreground: #ffffff;
+  --secondary: #C4B5FD;
+  --secondary-foreground: #3b0764;
+  --accent: #EDE9FE;
+  --accent-foreground: #3b0764;
+  --muted: #A78BFA;
+  --muted-foreground: #6d28d9;
+  --card: rgba(255, 255, 255, 0.12);
+  --card-foreground: #f3e8ff;
+  --border: rgba(255, 255, 255, 0.22);
+  --input: rgba(255, 255, 255, 0.25);
+  --ring: #C4B5FD;
+  --radius: 16px;
+  --font-sans: var(--font-cormorant), 'Cormorant Garamond', serif;
+  --font-display: 'Sualmate Love', 'Soulmate Love', cursive;
+
+  /* Purple dreamy palette */
+  --purple-light: #EDE9FE;
+  --purple-mid: #C4B5FD;
+  --purple-deep: #8B5CF6;
+  --purple-darker: #6D28D9;
+  --lavender: #DDD6FE;
+  --lilac: #F3E8FF;
+  --glass-bg: rgba(139, 92, 246, 0.15);
+  --glass-border: rgba(255, 255, 255, 0.28);
+  --glass-shadow: rgba(91, 33, 182, 0.3);
+  --white-soft: rgba(255, 255, 255, 0.95);
+  --purple-glow: rgba(196, 181, 253, 0.6);
+  --btn-bg: rgba(255, 255, 255, 0.18);
+  --btn-hover: rgba(255, 255, 255, 0.32);
+  --btn-active: rgba(196, 181, 253, 0.45);
+  --btn-shadow: rgba(91, 33, 182, 0.3);
+  --digit-bg: rgba(255, 255, 255, 0.18);
+  --digit-filled: rgba(255, 255, 255, 0.88);
+  --success-glow: rgba(100, 220, 180, 0.5);
+  --error-glow: rgba(240, 100, 100, 0.5);
+}
+
+/* ─── Animated gradient background ─── */
+.dreampass-bg {
+  background: linear-gradient(135deg, #3b0764 0%, #5B21B6 30%, #7C3AED 55%, #A78BFA 80%, #C4B5FD 100%);
+  min-height: 100vh;
+  position: relative;
+  overflow: hidden;
+}
+
+.dreampass-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 20% 50%, rgba(196, 181, 253, 0.35) 0%, transparent 60%),
+              radial-gradient(ellipse at 80% 20%, rgba(255, 255, 255, 0.15) 0%, transparent 50%),
+              radial-gradient(ellipse at 60% 80%, rgba(139, 92, 246, 0.3) 0%, transparent 50%);
+  pointer-events: none;
+}
+
+/* ─── Glassmorphism card ─── */
+.glass-card {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px var(--glass-shadow), inset 0 1px 0 rgba(255,255,255,0.35);
+  border-radius: var(--radius);
+}
+
+/* ─── Polaroid frame ─── */
+.polaroid-frame {
+  background: #fff;
+  padding: 12px 12px 48px 12px;
+  box-shadow:
+    0 4px 6px rgba(0,0,0,0.07),
+    0 10px 40px rgba(0,0,0,0.18),
+    0 30px 60px rgba(91,33,182,0.2),
+    inset 0 1px 0 rgba(255,255,255,0.9);
+  border-radius: 4px;
+  position: relative;
+  transform: rotate(-2deg);
+  transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s ease;
+}
+
+.polaroid-frame:hover {
+  transform: rotate(0deg) scale(1.02);
+  box-shadow:
+    0 8px 12px rgba(0,0,0,0.1),
+    0 20px 60px rgba(0,0,0,0.22),
+    0 40px 80px rgba(91,33,182,0.25);
+}
+
+.polaroid-shine {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.3) 0%, transparent 50%, rgba(255,255,255,0.05) 100%);
+  border-radius: 4px;
+  pointer-events: none;
+}
+
+/* ─── Digit boxes ─── */
+.digit-box {
+  width: 64px;
+  height: 64px;
+  background: var(--digit-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 2px solid var(--glass-border);
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 28px;
+  font-weight: 700;
+  color: white;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px rgba(91,33,182,0.25), inset 0 1px 0 rgba(255,255,255,0.4);
+  position: relative;
+  overflow: hidden;
+}
+
+.digit-box.filled {
+  background: var(--digit-filled);
+  color: var(--purple-deep);
+  border-color: rgba(255,255,255,0.8);
+  box-shadow: 0 4px 20px rgba(196,181,253,0.5), inset 0 1px 0 rgba(255,255,255,0.9);
+}
+
+.digit-box.active {
+  border-color: rgba(255,255,255,0.9);
+  box-shadow: 0 0 0 3px rgba(255,255,255,0.3), 0 4px 20px rgba(196,181,253,0.6);
+  animation: pulse-digit 1.2s ease-in-out infinite;
+}
+
+/* ─── Keypad buttons ─── */
+.keypad-btn {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: var(--btn-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  color: white;
+  font-size: 22px;
+  font-weight: 600;
+  cursor: none !important;
+  transition: all 0.15s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 16px var(--btn-shadow), inset 0 1px 0 rgba(255,255,255,0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.keypad-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.4) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.keypad-btn:hover {
+  background: var(--btn-hover);
+  transform: scale(1.08);
+  box-shadow: 0 6px 24px var(--btn-shadow), 0 0 20px var(--purple-glow), inset 0 1px 0 rgba(255,255,255,0.5);
+}
+
+.keypad-btn:active, .keypad-btn.pressed {
+  transform: scale(0.92);
+  background: var(--btn-active);
+  box-shadow: 0 2px 8px var(--btn-shadow), inset 0 2px 4px rgba(91,33,182,0.2);
+  transition: all 0.08s ease;
+}
+
+.keypad-btn.special {
+  font-size: 18px;
+}
+
+/* ─── Shake animation ─── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10% { transform: translateX(-8px) rotate(-1deg); }
+  20% { transform: translateX(8px) rotate(1deg); }
+  30% { transform: translateX(-8px) rotate(-1deg); }
+  40% { transform: translateX(8px) rotate(1deg); }
+  50% { transform: translateX(-6px); }
+  60% { transform: translateX(6px); }
+  70% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+  90% { transform: translateX(-2px); }
+}
+
+.shake {
+  animation: shake 0.6s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ─── Error state ─── */
+.digit-box.error {
+  background: rgba(240, 100, 100, 0.3);
+  border-color: rgba(255, 150, 150, 0.7);
+  box-shadow: 0 0 20px var(--error-glow), inset 0 1px 0 rgba(255,200,200,0.4);
+}
+
+/* ─── Success state ─── */
+.digit-box.success {
+  background: rgba(100, 220, 180, 0.3);
+  border-color: rgba(100, 220, 180, 0.7);
+  box-shadow: 0 0 20px var(--success-glow), inset 0 1px 0 rgba(200,255,240,0.4);
+}
+
+/* ─── Floating particle ─── */
+.particle {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  opacity: 0;
+}
+
+/* ─── Sparkle ─── */
+.sparkle {
+  position: absolute;
+  pointer-events: none;
+  animation: sparkle-anim 2s ease-in-out infinite;
+}
+
+@keyframes sparkle-anim {
+  0%, 100% { opacity: 0; transform: scale(0) rotate(0deg); }
+  50% { opacity: 1; transform: scale(1) rotate(180deg); }
+}
+
+/* ─── Floating animation ─── */
+@keyframes float {
+  0%, 100% { transform: translateY(0px) rotate(-2deg); }
+  50% { transform: translateY(-12px) rotate(-1deg); }
+}
+
+.floating {
+  animation: float 4s ease-in-out infinite;
+}
+
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+.floating-slow {
+  animation: float-slow 5s ease-in-out infinite;
+}
+
+/* ─── Pulse digit ─── */
+@keyframes pulse-digit {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(255,255,255,0.3), 0 4px 20px rgba(196,181,253,0.6); }
+  50% { box-shadow: 0 0 0 5px rgba(255,255,255,0.2), 0 4px 30px rgba(196,181,253,0.8); }
+}
+
+/* ─── Fade in up ─── */
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in-up {
+  animation: fadeInUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.fade-in {
+  animation: fadeIn 0.5s ease both;
+}
+
+/* ─── Stagger delays ─── */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ─── Mouse glow ─── */
+.mouse-glow {
+  position: fixed;
+  width: 300px;
+  height: 300px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(196,181,253,0.22) 0%, transparent 70%);
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: left 0.15s ease, top 0.15s ease;
+  z-index: 0;
+  mix-blend-mode: screen;
+}
+
+/* ─── Bow decoration ─── */
+.bow-decoration {
+  filter: drop-shadow(0 2px 8px rgba(91,33,182,0.35));
+}
+
+/* ─── Teddy sticker ─── */
+.teddy-sticker {
+  filter: drop-shadow(0 4px 12px rgba(91,33,182,0.3));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.teddy-sticker:hover {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* ─── Music toggle ─── */
+.music-btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--glass-bg);
+  backdrop-filter: blur(12px);
+  border: 1.5px solid var(--glass-border);
+  cursor: none !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 16px var(--glass-shadow);
+  z-index: 100;
+  color: white;
+}
+
+.music-btn:hover {
+  background: var(--btn-hover);
+  transform: scale(1.1);
+}
+
+/* ─── Unique Petal / Wand Cursor ─── */
+.custom-cursor {
+  width: 32px;
+  height: 32px;
+  position: fixed;
+  pointer-events: none;
+  z-index: 99999;
+  transform: translate(-4px, -4px);
+  transition: transform 0.08s ease;
+}
+
+.custom-cursor-trail {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(221,214,254,0.9) 0%, rgba(167,139,250,0.4) 60%, transparent 100%);
+  position: fixed;
+  pointer-events: none;
+  z-index: 99998;
+  transform: translate(-50%, -50%);
+  transition: left 0.12s ease, top 0.12s ease;
+}
+
+/* ─── Cursor sparkle burst ─── */
+@keyframes cursorSparkle {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(0) rotate(0deg); }
+  60% { opacity: 0.8; transform: translate(-50%, -50%) scale(1.5) rotate(180deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(2) rotate(360deg); }
+}
+
+.cursor-sparkle {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  pointer-events: none;
+  z-index: 99997;
+  animation: cursorSparkle 0.6s ease-out forwards;
+}
+
+/* ─── Success screen ─── */
+.success-bg {
+  background: linear-gradient(135deg, #3b0764 0%, #5B21B6 25%, #7C3AED 50%, #A78BFA 75%, #DDD6FE 100%);
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  14% { transform: scale(1.3); }
+  28% { transform: scale(1); }
+  42% { transform: scale(1.2); }
+  70% { transform: scale(1); }
+}
+
+.heartbeat {
+  animation: heartbeat 1.4s ease-in-out infinite;
+}
+
+@keyframes floatHeart {
+  0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; }
+  100% { transform: translateY(-200px) scale(0.3) rotate(30deg); opacity: 0; }
+}
+
+.float-heart {
+  animation: floatHeart 3s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.shimmer-text {
+  background: linear-gradient(90deg, #fff 20%, #DDD6FE 40%, #fff 60%, #C4B5FD 80%, #fff 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 3s linear infinite;
+}
+
+@keyframes scaleIn {
+  from { transform: scale(0.5) rotate(-5deg); opacity: 0; }
+  to { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+.scale-in {
+  animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.3; transform: scale(0.8); }
+  50% { opacity: 1; transform: scale(1.2); }
+}
+
+.star-twinkle {
+  animation: starTwinkle 2s ease-in-out infinite;
+}
+
+@keyframes ribbonWave {
+  0%, 100% { transform: rotate(-3deg) scale(1); }
+  50% { transform: rotate(3deg) scale(1.05); }
+}
+
+.ribbon-wave {
+  animation: ribbonWave 3s ease-in-out infinite;
+}
+
+/* ─── Easter egg ─── */
+@keyframes rainbowShift {
+  0% { filter: hue-rotate(0deg); }
+  100% { filter: hue-rotate(360deg); }
+}
+
+.easter-egg-active {
+  animation: rainbowShift 2s linear infinite;
+}
+
+/* ─── Page transition overlay ─── */
+.page-transition-overlay {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at center, #C4B5FD, #8B5CF6, #5B21B6);
+  z-index: 9998;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.5s ease;
+}
+
+/* ─── Google Calendar Button ─── */
+.calendar-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 14px 28px;
+  background: linear-gradient(135deg, rgba(139,92,246,0.35) 0%, rgba(196,181,253,0.25) 100%);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1.5px solid rgba(221,214,254,0.5);
+  border-radius: 50px;
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  cursor: none !important;
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 24px rgba(91,33,182,0.35), 0 0 0 0 rgba(196,181,253,0);
+  text-decoration: none;
+  position: relative;
+  overflow: hidden;
+}
+
+.calendar-btn::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50px;
+  background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.calendar-btn:hover {
+  background: linear-gradient(135deg, rgba(139,92,246,0.55) 0%, rgba(196,181,253,0.45) 100%);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 8px 32px rgba(91,33,182,0.5), 0 0 20px rgba(196,181,253,0.4);
+  border-color: rgba(255,255,255,0.6);
+}
+
+.calendar-btn:active {
+  transform: translateY(0) scale(0.97);
+  transition: all 0.1s ease;
+}
+
+@keyframes calendarPulse {
+  0%, 100% { box-shadow: 0 4px 24px rgba(91,33,182,0.35), 0 0 0 0 rgba(196,181,253,0.4); }
+  50% { box-shadow: 0 4px 24px rgba(91,33,182,0.35), 0 0 0 8px rgba(196,181,253,0); }
+}
+
+.calendar-btn {
+  animation: calendarPulse 2.5s ease-in-out infinite;
+}
+
+/* ─── Unice Logo ─── */
+.unice-logo {
+  filter: drop-shadow(0 4px 16px rgba(139,92,246,0.5));
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+}
+
+.unice-logo:hover {
+  transform: scale(1.08) rotate(3deg);
+  filter: drop-shadow(0 6px 24px rgba(196,181,253,0.7));
+}
+
+/* ─── Display font helper ─── */
+.font-display {
+  font-family: 'Sualmate Love', 'Soulmate Love', cursive;
+}
+
+/* ─── Scrollbar ─── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(255,255,255,0.08);
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(196,181,253,0.5);
+  border-radius: 3px;
+}
+
+/* ─── Responsive ─── */
+@media (max-width: 768px) {
+  .digit-box {
+    width: 52px;
+    height: 52px;
+    font-size: 22px;
+    border-radius: 12px;
+  }
+
+  .keypad-btn {
+    width: 64px;
+    height: 64px;
+    font-size: 20px;
+    /* Larger touch target */
+    min-width: 64px;
+    min-height: 64px;
+  }
+
+  .polaroid-frame {
+    padding: 8px 8px 36px 8px;
+    transform: rotate(-1deg);
+  }
+
+  .calendar-btn {
+    padding: 12px 22px;
+    font-size: 14px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .music-btn {
+    top: 14px;
+    right: 14px;
+    width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .digit-box {
+    width: 48px;
+    height: 48px;
+    font-size: 20px;
+    border-radius: 10px;
+  }
+
+  .keypad-btn {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .polaroid-frame {
+    padding: 6px 6px 32px 6px;
+  }
+}
+
+/* ─── Touch active states (mobile) ─── */
+@media (hover: none) and (pointer: coarse) {
+  .keypad-btn:active {
+    transform: scale(0.88);
+    background: var(--btn-active);
+    box-shadow: 0 2px 8px var(--btn-shadow), inset 0 2px 4px rgba(91,33,182,0.25);
+    transition: all 0.06s ease;
+  }
+
+  .calendar-btn:active {
+    transform: scale(0.96);
+    transition: all 0.08s ease;
+  }
+
+  /* Disable hover effects on touch devices */
+  .keypad-btn:hover {
+    transform: none;
+    background: var(--btn-bg);
+    box-shadow: 0 4px 16px var(--btn-shadow), inset 0 1px 0 rgba(255,255,255,0.4);
+  }
+
+  .polaroid-frame:hover {
+    transform: rotate(-1deg);
+    box-shadow:
+      0 4px 6px rgba(0,0,0,0.07),
+      0 10px 40px rgba(0,0,0,0.18),
+      0 30px 60px rgba(91,33,182,0.2),
+      inset 0 1px 0 rgba(255,255,255,0.9);
+  }
+}
+
+/* ─── Crystal cursor trail animation ─── */
+@keyframes cursorTrailFade {
+  0% { opacity: 1; transform: translate(-50%, -50%) scale(1) rotate(0deg); }
+  50% { opacity: 0.7; transform: translate(-50%, -50%) scale(1.3) rotate(120deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.3) rotate(240deg); }
+}
+
+/* ─── Mobile safe area support ─── */
+@supports (padding: max(0px)) {
+  .dreampass-bg,
+  .success-bg {
+    padding-bottom: max(0px, env(safe-area-inset-bottom));
+    padding-top: max(0px, env(safe-area-inset-top));
+  }
+}
+
+/* ─── Prevent text selection on interactive elements ─── */
+.keypad-btn,
+.calendar-btn,
+.music-btn {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}

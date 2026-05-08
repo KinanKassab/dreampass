@@ -1,0 +1,241 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="100%" height="100%">
+  <defs>
+    <!-- Background Gradient -->
+    <radialGradient id="bg-grad" cx="50%" cy="50%" r="70%">
+      <stop offset="0%" stop-color="#1A0B2E" />
+      <stop offset="100%" stop-color="#090314" />
+    </radialGradient>
+
+    <!-- Emblem Top Face Gradient -->
+    <radialGradient id="top-grad" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#C4B5FD" />
+      <stop offset="100%" stop-color="#7C3AED" />
+    </radialGradient>
+
+    <!-- Emblem 3D Extrusion Gradient -->
+    <linearGradient id="side-grad" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#3B0764" />
+      <stop offset="25%" stop-color="#5B21B6" />
+      <stop offset="50%" stop-color="#7C3AED" />
+      <stop offset="80%" stop-color="#4C1D95" />
+      <stop offset="100%" stop-color="#2E0650" />
+    </linearGradient>
+
+    <!-- Grid Fade Mask -->
+    <radialGradient id="grid-fade" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.3" />
+      <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0" />
+    </radialGradient>
+    <mask id="grid-mask">
+      <rect width="100%" height="100%" fill="url(#grid-fade)" />
+    </mask>
+
+    <!-- Filters -->
+    <filter id="glow-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="8" result="blur1" />
+      <feGaussianBlur stdDeviation="16" result="blur2" />
+      <feMerge>
+        <feMergeNode in="blur1" />
+        <feMergeNode in="blur2" />
+      </feMerge>
+    </filter>
+
+    <filter id="glow-blur-large" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="24" />
+    </filter>
+
+    <filter id="shadow-blur" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="12" />
+    </filter>
+
+    <!-- Complex Filter for the Letter R: Drop Shadow + Lilac Inner Glow -->
+    <filter id="r-effects" x="-20%" y="-20%" width="140%" height="140%">
+      <!-- 3D Drop Shadow -->
+      <feDropShadow dx="0" dy="12" stdDeviation="6" flood-color="#3B0764" flood-opacity="0.7" result="drop-shadow" />
+      
+      <!-- Inner Glow (Lilac) -->
+      <feGaussianBlur in="SourceAlpha" stdDeviation="3" result="blur" />
+      <feOffset dy="3" dx="-3" />
+      <feComposite operator="arithmetic" k2="-1" k3="1" in2="SourceAlpha" result="inv" />
+      <feFlood flood-color="#C4B5FD" flood-opacity="0.9" result="color" />
+      <feComposite operator="in" in="color" in2="inv" result="inner-glow" />
+      
+      <!-- Merge all layers -->
+      <feMerge>
+        <feMergeNode in="drop-shadow" />
+        <feMergeNode in="SourceGraphic" />
+        <feMergeNode in="inner-glow" />
+      </feMerge>
+    </filter>
+
+    <!-- Sparkle Symbol -->
+    <g id="sparkle">
+      <path d="M 0,-12 C 0,-2 2,0 12,0 C 2,0 0,2 0,12 C 0,2 -2,0 -12,0 C -2,0 0,-2 0,-12 Z" fill="#FFFFFF" />
+      <path d="M 0,-12 C 0,-2 2,0 12,0 C 2,0 0,2 0,12 C 0,2 -2,0 -12,0 C -2,0 0,-2 0,-12 Z" fill="#C4B5FD" filter="url(#glow-blur)" opacity="0.8" />
+    </g>
+  </defs>
+
+  <style><![CDATA[
+/* CSS Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-15px); }
+    }
+    @keyframes shadow-scale {
+      0%, 100% { transform: scale(1); opacity: 0.6; }
+      50% { transform: scale(0.85); opacity: 0.3; }
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(0.95); opacity: 0; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+      100% { transform: scale(1.15); opacity: 0; }
+    }
+    @keyframes twinkle {
+      0%, 100% { opacity: 0.1; transform: scale(0.5) rotate(0deg); }
+      50% { opacity: 1; transform: scale(1.2) rotate(45deg); }
+    }
+    @keyframes orbit {
+      0% { transform: rotate(0deg) translateX(220px) rotate(0deg); }
+      100% { transform: rotate(360deg) translateX(220px) rotate(-360deg); }
+    }
+
+    /* Animation Classes */
+    .floating-emblem {
+      animation: float 6s ease-in-out infinite;
+    }
+    .floor-shadow {
+      animation: shadow-scale 6s ease-in-out infinite;
+      transform-origin: 400px 420px;
+    }
+    .pulse {
+      animation: pulse-ring 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      transform-origin: 400px 300px;
+    }
+    .pulse-delayed {
+      animation: pulse-ring 4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      animation-delay: 2s;
+      transform-origin: 400px 300px;
+    }
+    .star {
+      animation: twinkle 4s ease-in-out infinite;
+    }
+]]></style>
+
+  <!-- Background -->
+  <rect width="100%" height="100%" fill="url(#bg-grad)" />
+
+  <!-- Isometric Floor Grid -->
+  <g mask="url(#grid-mask)">
+    <g transform="translate(400, 420) scale(1, 0.57735) rotate(45)" stroke="#7C3AED" stroke-width="2" opacity="0.5">
+      <!-- Horizontal Lines -->
+      <line x1="-400" y1="-300" x2="400" y2="-300" />
+      <line x1="-400" y1="-200" x2="400" y2="-200" />
+      <line x1="-400" y1="-100" x2="400" y2="-100" />
+      <line x1="-400" y1="0" x2="400" y2="0" />
+      <line x1="-400" y1="100" x2="400" y2="100" />
+      <line x1="-400" y1="200" x2="400" y2="200" />
+      <line x1="-400" y1="300" x2="400" y2="300" />
+      <!-- Vertical Lines -->
+      <line y1="-400" x1="-300" y2="400" x2="-300" />
+      <line y1="-400" x1="-200" y2="400" x2="-200" />
+      <line y1="-400" x1="-100" y2="400" x2="-100" />
+      <line y1="-400" x1="0" y2="400" x2="0" />
+      <line y1="-400" x1="100" y2="400" x2="100" />
+      <line y1="-400" x1="200" y2="400" x2="200" />
+      <line y1="-400" x1="300" y2="400" x2="300" />
+    </g>
+  </g>
+
+  <!-- Floor Shadow -->
+  <ellipse class="floor-shadow" cx="400" cy="420" rx="150" ry="86.6" fill="#000000" filter="url(#shadow-blur)" />
+
+  <!-- Main Floating Emblem Group -->
+  <g class="floating-emblem">
+    
+    <!-- Pulsing Outer Glow Rings -->
+    <g>
+      <ellipse class="pulse" cx="400" cy="300" rx="170" ry="98.15" fill="none" stroke="rgba(196,181,253,0.6)" stroke-width="4" filter="url(#glow-blur)" />
+      <ellipse class="pulse" cx="400" cy="300" rx="170" ry="98.15" fill="none" stroke="rgba(196,181,253,0.3)" stroke-width="12" filter="url(#glow-blur-large)" />
+      
+      <ellipse class="pulse-delayed" cx="400" cy="300" rx="170" ry="98.15" fill="none" stroke="rgba(196,181,253,0.6)" stroke-width="4" filter="url(#glow-blur)" />
+      <ellipse class="pulse-delayed" cx="400" cy="300" rx="170" ry="98.15" fill="none" stroke="rgba(196,181,253,0.3)" stroke-width="12" filter="url(#glow-blur-large)" />
+    </g>
+
+    <!-- 3D Extrusion Side -->
+    <!-- rx=160, ry=92.376. Depth = 30px -->
+    <path d="M 240,300 
+             L 240,330 
+             A 160,92.376 0 0,0 560,330 
+             L 560,300 
+             A 160,92.376 0 0,1 240,300 Z" 
+          fill="url(#side-grad)" />
+
+    <!-- Top Face Background -->
+    <ellipse cx="400" cy="300" rx="160" ry="92.376" fill="url(#top-grad)" />
+
+    <!-- Thin White Border Ring (Slightly inset for elegance) -->
+    <ellipse cx="400" cy="300" rx="152" ry="87.75" fill="none" stroke="#FFFFFF" stroke-width="1.5" opacity="0.85" />
+    <ellipse cx="400" cy="300" rx="146" ry="84.29" fill="none" stroke="#C4B5FD" stroke-width="0.5" opacity="0.5" />
+
+    <!-- Elegant Letter R (Mapped to Isometric Plane) -->
+    <!-- scale(1, 0.57735) perfectly maps 2D coordinates to the isometric top face -->
+    <g transform="translate(400, 300) scale(1, 0.57735)">
+      <path fill-rule="evenodd" d="
+          M -25, 55
+          C -35, 55 -40, 45 -35, 35
+          C -30, 25 -20, 25 -20, 35
+          L -20, -25
+          C -20, -35 -30, -35 -35, -25
+          C -40, -15 -50, -15 -50, -25
+          C -50, -45 -30, -55 -10, -55
+          L 20, -55
+          C 50, -55 65, -42 65, -27.5
+          C 65, -10 50, 0 30, 5
+          C 45, 10 55, 30 60, 50
+          C 62, 60 70, 65 75, 60
+          C 80, 55 75, 45 70, 45
+          C 65, 45 62, 50 58, 50
+          C 52, 50 48, 35 42, 20
+          C 35, 0 25, -5 5, -5
+          L -2, -5
+          L -2, 35
+          C -2, 45 5, 45 10, 35
+          C 15, 25 25, 25 25, 35
+          C 25, 50 10, 55 -5, 55
+          Z
+          M -2, -20
+          L 20, -20
+          C 35, -20 45, -25 45, -30
+          C 45, -35 35, -40 20, -40
+          L -2, -40
+          Z
+        " 
+        fill="#FFFFFF" 
+        filter="url(#r-effects)" />
+    </g>
+  </g>
+
+  <!-- Floating Decorative Sparkles -->
+  <g>
+    <!-- Foreground Sparkles -->
+    <g transform="translate(220, 200) scale(1.2)"><use href="#sparkle" class="star" style="animation-delay: 0s;" /></g>
+    <g transform="translate(580, 380) scale(1.5)"><use href="#sparkle" class="star" style="animation-delay: 1.2s;" /></g>
+    <g transform="translate(620, 180) scale(0.9)"><use href="#sparkle" class="star" style="animation-delay: 2.5s;" /></g>
+    
+    <!-- Background / Smaller Sparkles -->
+    <g transform="translate(300, 120) scale(0.6)"><use href="#sparkle" class="star" style="animation-delay: 0.8s;" /></g>
+    <g transform="translate(500, 480) scale(0.7)"><use href="#sparkle" class="star" style="animation-delay: 3.1s;" /></g>
+    <g transform="translate(150, 350) scale(0.8)"><use href="#sparkle" class="star" style="animation-delay: 1.7s;" /></g>
+    
+    <!-- Orbiting Sparkle -->
+    <g transform="translate(400, 300)">
+      <g style="animation: orbit 12s linear infinite;">
+        <use href="#sparkle" class="star" style="animation-delay: 0s;" transform="scale(0.8)" />
+      </g>
+    </g>
+  </g>
+
+  <!-- Ambient Foreground Glows -->
+  <circle cx="200" cy="200" r="40" fill="#C4B5FD" opacity="0.1" filter="url(#glow-blur-large)" />
+  <circle cx="600" cy="400" r="60" fill="#7C3AED" opacity="0.15" filter="url(#glow-blur-large)" />
+</svg>
